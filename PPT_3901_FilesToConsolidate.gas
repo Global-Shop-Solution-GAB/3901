@@ -1,0 +1,487 @@
+Program.Sub.ScreenSU.Start
+gui.F_Main..create
+gui.F_Main..caption("Consolidate Files")
+gui.F_Main..size(9000,4700)
+gui.F_Main..minx(0)
+gui.F_Main..miny(0)
+gui.F_Main..position(0,0)
+gui.F_Main..event(unload,f_main_unload)
+gui.F_Main..alwaysontop(False)
+gui.F_Main..fontname("Arial")
+gui.F_Main..fontsize(8)
+gui.F_Main..forecolor(0)
+gui.F_Main..fontstyle(,,,,)
+gui.F_Main..BackColor(-2147483633)
+gui.F_Main..controlbox(True)
+gui.F_Main..maxbutton(False)
+gui.F_Main..minbutton(True)
+gui.F_Main..mousepointer(0)
+gui.F_Main..moveable(True)
+gui.F_Main..sizeable(False)
+gui.F_Main..ShowInTaskBar(True)
+gui.F_Main..titlebar(True)
+gui.F_Main.gsfgConFiles.create(gsflexgrid)
+gui.F_Main.gsfgConFiles.FixedRows(0)
+gui.F_Main.gsfgConFiles.FixedCols(0)
+gui.F_Main.gsfgConFiles.visible(True)
+gui.F_Main.gsfgConFiles.size(8500,3200)
+gui.F_Main.gsfgConFiles.zorder(0)
+gui.F_Main.gsfgConFiles.position(200,395)
+gui.F_Main.gsfgConFiles.enabled(True)
+gui.F_Main.gsfgConFiles.event(commandclick,gsfgconfiles_commandclick)
+gui.F_Main.lblCount.create(label,"Files to be consolidated",True,1935,255,1,200,200,True,0,Arial,8,-2147483633,0)
+gui.F_Main.lblCount.defaultvalue("")
+gui.F_Main.lblCount.controlgroup(0)
+gui.F_Main.cmdSave.create(button)
+gui.F_Main.cmdSave.caption("Save")
+gui.F_Main.cmdSave.visible(True)
+gui.F_Main.cmdSave.size(855,375)
+gui.F_Main.cmdSave.zorder(0)
+gui.F_Main.cmdSave.position(200,3700)
+gui.F_Main.cmdSave.enabled(True)
+gui.F_Main.cmdSave.fontname("Arial")
+gui.F_Main.cmdSave.fontsize(8)
+gui.F_Main.cmdSave.event(click,cmdsave_click)
+gui.F_Main.cmdSave.defaultvalue("")
+gui.F_Main.cmdSave.controlgroup(0)
+gui.F_Main.cmdClear.create(button)
+gui.F_Main.cmdClear.caption("Clear")
+gui.F_Main.cmdClear.visible(True)
+gui.F_Main.cmdClear.size(855,375)
+gui.F_Main.cmdClear.zorder(0)
+gui.F_Main.cmdClear.position(1200,3700)
+gui.F_Main.cmdClear.enabled(True)
+gui.F_Main.cmdClear.fontname("Arial")
+gui.F_Main.cmdClear.fontsize(8)
+gui.F_Main.cmdClear.event(click,cmdclear_click)
+gui.F_Main.cmdClear.defaultvalue("")
+gui.F_Main.cmdClear.controlgroup(0)
+gui.F_Main.cmdChange.create(button)
+gui.F_Main.cmdChange.caption("Consolidation Location")
+gui.F_Main.cmdChange.visible(True)
+gui.F_Main.cmdChange.size(1740,375)
+gui.F_Main.cmdChange.zorder(0)
+gui.F_Main.cmdChange.position(6915,3700)
+gui.F_Main.cmdChange.enabled(True)
+gui.F_Main.cmdChange.fontname("Arial")
+gui.F_Main.cmdChange.fontsize(8)
+gui.F_Main.cmdChange.event(click,cmdchange_click)
+gui.F_Main.cmdChange.defaultvalue("")
+gui.F_Main.cmdChange.controlgroup(0)
+
+
+gui.F_ConLoc..create
+gui.F_ConLoc..caption("Select Consolidation Location")
+gui.F_ConLoc..size(7000,2000)
+gui.F_ConLoc..minx(0)
+gui.F_ConLoc..miny(0)
+gui.F_ConLoc..position(0,0)
+gui.F_ConLoc..alwaysontop(False)
+gui.F_ConLoc..fontname("Arial")
+gui.F_ConLoc..fontsize(8)
+gui.F_ConLoc..forecolor(0)
+gui.F_ConLoc..fontstyle(,,,,)
+gui.F_ConLoc..BackColor(-2147483633)
+gui.F_ConLoc..controlbox(True)
+gui.F_ConLoc..maxbutton(False)
+gui.F_ConLoc..minbutton(False)
+gui.F_ConLoc..mousepointer(0)
+gui.F_ConLoc..moveable(False)
+gui.F_ConLoc..sizeable(False)
+gui.F_ConLoc..ShowInTaskBar(False)
+gui.F_ConLoc..titlebar(True)
+gui.F_ConLoc.lblCon.create(label,"No consolidation location selected. Please choose one now..",True,6375,255,1,200,200,True,0,Arial,8,-2147483633,0)
+gui.F_ConLoc.lblCon.defaultvalue("")
+gui.F_ConLoc.lblCon.controlgroup(0)
+gui.F_ConLoc.txtConLoc.create(textbox,"",True,6100,300,0,200,400,True,0,Arial,8,-2147483643,1)
+gui.F_ConLoc.txtConLoc.defaultvalue("")
+gui.F_ConLoc.txtConLoc.controlgroup(0)
+gui.F_ConLoc.cmdBrowse.create(button)
+gui.F_ConLoc.cmdBrowse.caption("^")
+gui.F_ConLoc.cmdBrowse.visible(True)
+gui.F_ConLoc.cmdBrowse.size(375,375)
+gui.F_ConLoc.cmdBrowse.zorder(0)
+gui.F_ConLoc.cmdBrowse.position(6300,360)
+gui.F_ConLoc.cmdBrowse.enabled(True)
+gui.F_ConLoc.cmdBrowse.fontname("Arial")
+gui.F_ConLoc.cmdBrowse.fontsize(8)
+gui.F_ConLoc.cmdBrowse.event(click,cmdbrowse_click)
+gui.F_ConLoc.cmdBrowse.defaultvalue("")
+gui.F_ConLoc.cmdBrowse.controlgroup(0)
+gui.F_ConLoc.cmdOK.create(button)
+gui.F_ConLoc.cmdOK.caption("OK")
+gui.F_ConLoc.cmdOK.visible(True)
+gui.F_ConLoc.cmdOK.size(855,375)
+gui.F_ConLoc.cmdOK.zorder(0)
+gui.F_ConLoc.cmdOK.position(200,1030)
+gui.F_ConLoc.cmdOK.enabled(True)
+gui.F_ConLoc.cmdOK.fontname("Arial")
+gui.F_ConLoc.cmdOK.fontsize(8)
+gui.F_ConLoc.cmdOK.event(click,cmdok_click)
+gui.F_ConLoc.cmdOK.defaultvalue("")
+gui.F_ConLoc.cmdOK.controlgroup(0)
+gui.F_ConLoc.lbl2.create(label,"",,0,0,0,0,0,True,0,,8,0,0)
+gui.F_ConLoc.lbl2.defaultvalue("")
+gui.F_ConLoc.lbl2.controlgroup(0)
+
+
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+Variable.UDT.uFiles.Define("FromPath",String,FROM_PATH)
+Variable.UDT.uFiles.Define("ToPath",String,TO_PATH)
+Variable.UDT.uFiles.Define("New",Boolean)
+Variable.uGlobal.uFiles.Declare("uFiles")
+Variable.Global.bChange.Declare(Boolean,False)
+Variable.Global.sCurrent.Declare(String)
+Variable.Global.bInit.Declare(Boolean,False)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+'Quote# 6860  Consolidate Files for Jormac Aerospace, Inc. -7/20/15 MAT
+
+V.Local.bRet.Declare(Boolean)
+F.ODBC.Connection!conX.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+F.ODBC.Connection!conX.TableExists("PPT_3901_GL_CNS",V.Local.bRet)
+f.Intrinsic.Control.If(v.Local.bRet.Not)
+	F.Intrinsic.UI.Msgbox("PPT_3901_GL_CNS table is missing. Please add in order to use program","File Consolidation")
+	F.ODBC.Connection!conX.Close
+	F.Intrinsic.Control.End
+F.Intrinsic.Control.EndIf
+F.ODBC.Connection!conX.Close
+
+F.Intrinsic.Control.CallSub(Buildstyle)
+F.Intrinsic.Control.CallSub(Loadscreen)
+
+
+
+Program.Sub.Main.End
+
+program.sub.f_main_unload.start
+
+F.Intrinsic.Control.End
+
+program.sub.f_main_unload.end
+
+program.sub.cmdbrowse_click.start
+V.Local.sFilePath.Declare(String)
+
+F.Intrinsic.UI.FolderBrowser("Consolidation Location",V.Local.sFilePath)
+F.Intrinsic.File.GetUNCName(V.Local.sFilePath,V.Local.sFilePath)
+Gui.F_ConLoc.txtConLoc.Text(V.Local.sFilePath)
+
+program.sub.cmdbrowse_click.end
+
+program.sub.cmdsave_click.start
+'Save grid back to table
+
+V.Local.sRet.Declare(String)
+V.Local.iCount.Declare(Long)
+
+F.Intrinsic.Control.If(V.Screen.F_ConLoc!txtConLoc.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Please select consolidation location","File Consolidation")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.uGlobal.uFiles(0)!FromPath,=,"",AND,v.Global.bInit,=,False)
+	F.Intrinsic.UI.Msgbox("No files selected","File Consolidation")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.UI.InvokeWaitDialog("Updating Consolidation Table","File Consolidation")
+
+F.ODBC.Connection!conX.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+
+'clear entire table
+'F.ODBC.Connection!conX.Execute("Delete From GL_Consolidated")
+
+'re-add everything
+F.ODBC.Connection!conX.OpenLocalRecordsetRW("rst","Select * From PPT_3901_GL_CNS")
+f.Intrinsic.Control.If(v.Global.bChange)
+
+	f.Intrinsic.Control.DoUntil(v.ODBC.conX!rst.EOF)
+		F.ODBC.conX!rst.Set!To_Path(V.Screen.F_ConLoc!txtConLoc.Text)
+		F.ODBC.conX!rst.MoveNext
+	F.Intrinsic.Control.Loop
+
+F.Intrinsic.Control.Else
+	
+	F.Intrinsic.Control.For(V.Local.iCount,0,V.uGlobal.uFiles.UBound,1)
+		F.Intrinsic.UI.ChangeWaitStatus("Updating Consolidation Table",V.Local.iCount,0,V.uGlobal.uFiles.UBound)
+		f.Intrinsic.Control.If(v.Global.bChange)
+			F.ODBC.conX!rst.Set!To_Path(V.Screen.F_ConLoc!txtConLoc.Text)
+		F.Intrinsic.Control.Else
+			F.Intrinsic.Control.If(V.uGlobal.uFiles(v.Local.iCount)!FromPath,!=,"",AND,v.uGlobal.uFiles(v.Local.iCount)!New,=,True)
+				F.ODBC.conX!rst.AddNew
+				F.ODBC.conX!rst.Set!From_Path(V.uGlobal.uFiles(v.Local.iCount)!FromPath)
+				F.ODBC.conX!rst.Set!To_Path(V.Screen.F_ConLoc!txtConLoc.Text)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Next(V.Local.iCount)
+	F.ODBC.conX!rst.Update
+
+F.Intrinsic.Control.EndIf
+
+F.ODBC.conX!rst.Close
+F.ODBC.Connection!conX.Close
+
+F.Intrinsic.UI.CloseWaitDialog
+
+f.Intrinsic.Control.If(v.Global.bChange.Not)
+	F.Intrinsic.Control.CallSub(Loadscreen)
+	F.Intrinsic.String.Concat("Files will be moved to ",V.Ambient.DblQuote,V.Screen.F_ConLoc!txtConLoc.Text,V.Ambient.DblQuote," tonight at 11:00pm",V.Local.sRet)
+	F.Intrinsic.UI.Msgbox(V.Local.sRet,"File Consolidation")
+F.Intrinsic.Control.EndIf
+
+
+program.sub.cmdsave_click.end
+
+program.sub.gsfgconfiles_commandclick.start
+'This sub handles both the addition and removal of files to/from the grid
+
+V.Local.sFilePath.Declare(String)
+V.Local.sFile.Declare(String)
+V.Local.iUB.Declare(Long,0)
+V.Local.sRet.Declare(String)
+V.Local.iRet.Declare(Long)
+V.Local.iRow.Declare(Long)
+V.Local.bReplace.Declare(Boolean,False)
+V.Local.sQuery.Declare(String)
+V.Local.sExist.Declare(String)
+
+F.Intrinsic.Control.SelectCase(V.Args.COLUMN)
+
+	F.Intrinsic.Control.Case(0)
+		F.Intrinsic.Control.If(V.uGlobal.uFiles.UBound,=,-1)
+			V.uGlobal.uFiles.Redim(0,0)
+		F.Intrinsic.Control.Else
+			V.Local.iUB.Set(V.uGlobal.uFiles.UBound)
+		F.Intrinsic.Control.EndIf
+
+		F.Intrinsic.UI.ShowOpenFileDialog("","","",V.Local.sFilePath)
+
+		F.Intrinsic.Control.If(V.Local.sFilePath,!=,"***CANCEL***")
+			F.Intrinsic.File.GetUNCName(V.Local.sFilePath,V.Local.sFilePath)
+
+			'If exact path and files already exist, do nothing
+			F.Intrinsic.Variable.UDTSeek(V.uGlobal.uFiles!FromPath,V.Local.sFilePath,4,V.Local.sRet)
+			F.Intrinsic.Control.If(V.Local.sRet,!=,"")
+				F.Intrinsic.Math.ConvertToLong(V.Local.sRet,V.Local.iRet)
+				F.Intrinsic.String.Concat("This path and file already exist in the table.",V.Ambient.NewLine,V.Ambient.NewLine,V.uGlobal.uFiles(v.Local.iRet)!FromPath,V.Local.sExist)
+				F.Intrinsic.UI.Msgbox(V.Local.sExist,"File Consolidation")
+				F.Intrinsic.Control.ExitSub
+			F.Intrinsic.Control.EndIf
+	
+			F.Intrinsic.String.Split(V.Local.sFilePath,"\",V.Local.sFile)
+			F.Intrinsic.String.Concat("Like::*",V.Local.sFile(v.Local.sFile.UBound),V.Local.sQuery)
+			F.Intrinsic.Variable.UDTMultiSeek(V.uGlobal.uFiles!FromPath,V.Local.sQuery,V.Local.sRet)
+			F.Intrinsic.Control.If(V.Local.sRet,!=,"")
+				F.Intrinsic.Math.ConvertToLong(V.Local.sRet,V.Local.iUB)
+				F.Intrinsic.String.Concat("This file already exist in the table.",V.Ambient.NewLine,V.Ambient.NewLine,V.uGlobal.uFiles(v.Local.iUB)!FromPath,V.Ambient.NewLine,V.Ambient.NewLine,"Replace this file with the one you've selected?",V.Local.sExist)
+				F.Intrinsic.UI.Msgbox(V.Local.sExist,"Overwrite?",4,V.Local.iRet)
+				F.Intrinsic.Control.If(V.Local.iRet,=,6)
+					V.uGlobal.uFiles(v.Local.iUB)!FromPath.Set(V.Local.sFilePath)
+				F.Intrinsic.Control.EndIf
+				Gui.F_Main.gsfgConFiles.Visible(False)
+				Gui.F_Main.gsfgConFiles.LoadFromUDT("uGlobal.uFiles","FromPath::1",1)
+				Gui.F_Main.gsfgConFiles.Visible(True)
+				F.Intrinsic.Control.ExitSub
+			F.Intrinsic.Control.EndIf
+
+			Gui.F_Main.gsfgConFiles.GetTextMatrix(1,V.Args.KEY,V.Local.sRet)
+			F.Intrinsic.Control.If(V.Local.sRet,!=,"")
+				V.Local.bReplace.Set(True)
+				F.Intrinsic.Variable.UDTSeek(V.uGlobal.uFiles!FromPath,V.Local.sRet,4,V.Local.sRet)
+				F.Intrinsic.Math.ConvertToLong(V.Local.sRet,V.Local.iUB)
+			F.Intrinsic.Control.EndIf
+
+			F.Intrinsic.Control.If(V.uGlobal.uFiles(v.Local.iUB)!FromPath,!=,"",AND,v.Local.bReplace,=,False)
+				F.Intrinsic.Math.Add(V.Local.iUB,1,V.Local.iUB)
+			F.Intrinsic.Control.EndIf
+
+			'Setting file to UDT here
+			V.uGlobal.uFiles(v.Local.iUB)!FromPath.Set(V.Local.sFilePath)
+			V.uGlobal.uFiles(v.Local.iUB)!New.Set(True)
+
+			F.Intrinsic.Control.If(v.Local.bReplace.Not)
+				F.Intrinsic.Math.Add(V.Local.iUB,1,V.Local.iUB)
+				V.uGlobal.uFiles.RedimPreserve(0,V.Local.iUB)
+			F.Intrinsic.Control.EndIf
+
+		F.Intrinsic.Control.EndIf
+
+	F.Intrinsic.Control.Case(2)
+		Gui.F_Main.gsfgConFiles.GetTextMatrix(1,V.Args.KEY,V.Local.sFilePath)
+		F.Intrinsic.Control.If(V.Local.sFilePath,=,"")
+			F.Intrinsic.Control.ExitSub
+		F.Intrinsic.Control.EndIf
+
+		F.Intrinsic.Variable.UDTSeek(V.uGlobal.uFiles!FromPath,V.Local.sFilePath,4,V.Local.sRet)
+		F.Intrinsic.Variable.UDTFlagOrdinal(V.uGlobal.uFiles,True,V.Local.sRet)
+		F.Intrinsic.Variable.UDTDeleteFlagged(V.uGlobal.uFiles)
+
+		F.ODBC.Connection!conX.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+
+		F.Intrinsic.String.Concat("Delete From PPT_3901_GL_CNS where From_Path = '",V.Local.sFilePath,"'",V.Local.sQuery)
+		F.ODBC.Connection!conX.Execute(V.Local.sQuery)
+
+		F.ODBC.Connection!conX.Close
+
+		F.Intrinsic.Control.CallSub(Loadscreen)
+
+	F.Intrinsic.Control.CaseElse
+		F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.EndSelect
+
+Gui.F_Main.gsfgConFiles.Visible(False)
+Gui.F_Main.gsfgConFiles.LoadFromUDT("uGlobal.uFiles","FromPath::1",1)
+Gui.F_Main.gsfgConFiles.Visible(True)
+
+program.sub.gsfgconfiles_commandclick.end
+
+Program.Sub.BuildStyle.Start
+
+Gui.F_Main.gsfgConFiles.Rows(2)
+Gui.F_Main.gsfgConFiles.Cols(3)
+
+Gui.F_Main.gsfgConFiles.FixedRows(1)
+
+Gui.F_Main.gsfgConFiles.SetColumnPercentages(".07:.84:.09")
+
+'Add/Change Column
+Gui.F_Main.gsfgConFiles.BuildStyle(1,0,"type","command","Add")
+Gui.F_Main.gsfgConFiles.BuildStyle(1,0,"format","alignment","4")
+
+'Files Column
+Gui.F_Main.gsfgConFiles.TextMatrix(1,0,"Files")
+Gui.F_Main.gsfgConFiles.BuildStyle(1,1,"type","locked","True")
+Gui.F_Main.gsfgConFiles.BuildStyle(1,1,"format","alignment","2")
+
+'Remove Column
+Gui.F_Main.gsfgConFiles.BuildStyle(1,2,"type","command","Remove")
+Gui.F_Main.gsfgConFiles.BuildStyle(1,2,"format","alignment","4")
+
+
+Gui.F_Main.gsfgConFiles.ApplyStyle(1,1)
+
+Program.Sub.BuildStyle.End
+
+Program.Sub.LoadScreen.Start
+V.Local.sRet.Declare(String)
+V.Local.iRet.Declare(Long)
+V.Local.iRow.Declare(Long)
+V.Local.iUB.Declare(Long)
+
+F.ODBC.Connection!conX.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+
+F.ODBC.Connection!conX.OpenLocalRecordsetRO("rst","Select * From PPT_3901_GL_CNS")
+
+f.Intrinsic.Control.If(v.ODBC.conX!rst.EOF)
+	F.Intrinsic.Control.If(V.Screen.F_ConLoc!txtConLoc.Text,=,"")
+		V.Global.bInit.Set(True)
+		Gui.F_Main..Enabled(False)
+		Gui.F_Main..Show
+		Gui.F_ConLoc.txtConLoc.Locked(True)
+		Gui.F_ConLoc.lblCon.Caption("No consolidation location selected. Please choose one now.")
+		Gui.F_ConLoc..Show
+	F.Intrinsic.Control.endif
+F.Intrinsic.Control.Else
+	Gui.F_ConLoc.txtConLoc.Text(V.ODBC.conX!rst.FieldVal!TO_PATH)
+	F.Intrinsic.Variable.LoadUDTFromRecordset("conX","rst","uGlobal.uFiles",False)
+	F.Intrinsic.String.Concat("Consolidate Files to [",V.Screen.F_ConLoc!txtConLoc.Text,"]",V.Local.sRet)
+	Gui.F_Main..Caption(V.Local.sRet)
+	Gui.F_Main.gsfgConFiles.Visible(False)
+	F.Intrinsic.Math.Add(V.uGlobal.uFiles.UBound,1,V.Local.iUB)
+	V.uGlobal.uFiles.RedimPreserve(0,V.Local.iUB)
+	Gui.F_Main.gsfgConFiles.LoadFromUDT("uGlobal.uFiles","FromPath::1",1)
+	Gui.F_Main.gsfgConFiles.Visible(True)
+	Gui.F_Main..Show
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Math.Add(V.uGlobal.uFiles.UBound,-,V.Local.iRet)
+F.Intrinsic.Control.If(V.Local.iRet,<,0)
+	V.Local.iRet.Set(0)
+F.Intrinsic.Control.EndIf
+F.Intrinsic.String.Concat("Files to be consolidated: ",V.Local.iRet,V.Local.sRet)
+Gui.F_Main.lblCount.Caption(V.Local.sRet)
+
+V.Global.sCurrent.Set(V.Screen.F_ConLoc!txtConLoc.Text)
+F.ODBC.conX!rst.Close
+F.ODBC.Connection!conX.Close
+
+Program.Sub.LoadScreen.End
+
+program.sub.cmdclear_click.start
+V.Local.iRet.Declare(Long)
+
+F.Intrinsic.UI.Msgbox("This clears the entire list of  files to be consolidated. Continue?","Clear Consolidation Table?",4,V.Local.iRet)
+
+F.Intrinsic.Control.If(V.Local.iRet,=,6)
+	F.Intrinsic.Control.CallSub(Cleartable)
+F.Intrinsic.Control.EndIf
+
+program.sub.cmdclear_click.end
+
+program.sub.cmdok_click.start
+V.Local.sRet.Declare(String)
+V.Local.iRet.Declare(Long)
+
+F.Intrinsic.Control.if(V.Screen.F_ConLoc!txtConLoc.Text,=,"")
+	F.Intrinsic.UI.Msgbox("Consolidation location is required","Missing Location")
+F.Intrinsic.Control.Else
+	F.Intrinsic.Control.If(V.Global.sCurrent,!=,V.Screen.F_ConLoc!txtConLoc.Text,AND,v.Global.bInit,=,False)
+		F.Intrinsic.UI.Msgbox("All files will be consolidated to this new location. Continue?","Change Cosolidation Location?",4,V.Local.iRet)
+		F.Intrinsic.Control.If(V.Local.iRet,=,6)
+			V.Global.sCurrent.Set(V.Screen.F_ConLoc!txtConLoc.Text)
+			V.Global.bChange.Set(True)
+			F.Intrinsic.Control.CallSub(Cmdsave_click)
+			V.Global.bChange.Set(False)
+			F.Intrinsic.String.Concat("Consolidate Files to [",V.Screen.F_ConLoc!txtConLoc.Text,"]",V.Local.sRet)
+			Gui.F_Main..Caption(V.Local.sRet)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Concat("Consolidate Files to [",V.Screen.F_ConLoc!txtConLoc.Text,"]",V.Local.sRet)
+		Gui.F_Main..Caption(V.Local.sRet)
+	F.Intrinsic.Control.EndIf
+
+	V.Global.bInit.Set(False)
+	Gui.F_ConLoc..Visible(False)
+	Gui.F_Main..Enabled(True)
+	Gui.F_Main..Show
+F.Intrinsic.Control.EndIf
+
+program.sub.cmdok_click.end
+
+program.sub.cmdchange_click.start
+V.Local.sRet.Declare(String)
+
+Gui.F_Main..Enabled(False)
+V.Local.sRet.Set(V.Screen.F_ConLoc!lblCon.Caption)
+Gui.F_ConLoc.lblCon.Caption("Consolidation Location")
+Gui.F_ConLoc.txtConLoc.Text(V.Global.sCurrent)
+Gui.F_ConLoc..Visible(True)
+
+program.sub.cmdchange_click.end
+
+Program.Sub.ClearTable.Start
+
+F.ODBC.Connection!conX.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+
+F.ODBC.Connection!conX.Execute("Delete From PPT_3901_GL_CNS")
+
+F.ODBC.Connection!conX.Close
+
+V.uGlobal.uFiles.Redim(-1,-1)
+Gui.F_Main.gsfgConFiles.Rows(1)
+Gui.F_Main.gsfgConFiles.Rows(2)
+Gui.F_Main.gsfgConFiles.FixedRows(1)
+Gui.F_Main.gsfgConFiles.ApplyStyle(1,1)
+
+Program.Sub.ClearTable.End
+
+Program.Sub.Comments.Start
+${$0$}$PPT_ConsolidateFiles$}$MARY$}$7/19/2015
+Program.Sub.Comments.End
+
