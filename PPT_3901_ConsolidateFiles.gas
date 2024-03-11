@@ -1,0 +1,80 @@
+Program.Sub.ScreenSU.Start
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+V.Local.bRet.Declare(Boolean)
+V.Local.iRet.Declare(Long)
+V.Local.sRet.Declare(String)
+V.Local.iCount.Declare(Long)
+V.Local.iTotalFiles.Declare(Long)
+V.Local.iMoved.Declare(Long)
+V.Local.iUserID.Declare(Long)
+V.Local.sFrom.Declare(String)
+V.Local.sTo.Declare(String)
+V.Local.sBody.Declare(String)
+V.Local.sUser.Declare(String)
+
+F.Global.Security.GetAllUsers(V.Caller.CompanyCode,V.Local.sUser)
+F.Intrinsic.String.Split(V.Local.sUser,"*!*",V.Local.sUser)
+
+F.Global.Security.GetUserID(V.Local.sUser(0),V.Caller.CompanyCode,V.Local.iUserID)
+
+F.Intrinsic.control.ErrorResume(True)
+
+
+F.ODBC.Connection!conX.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+F.ODBC.Connection!conX.TableExists("PPT_3901_GL_CNS",V.Local.bRet)
+
+F.Intrinsic.Control.If(V.Local.bRet,=,True)
+	F.ODBC.Connection!conX.ExecuteAndReturn("Select Count(*) From PPT_3901_GL_CNS",V.Local.iTotalFiles)
+	F.Intrinsic.Debug.SetLA("Number of files to be moved: ",V.Local.iTotalFiles)
+	F.ODBC.Connection!conX.ExecuteAndReturn("Select Top 1 TO_PATH From PPT_3901_GL_CNS",V.Local.sRet)
+	F.Intrinsic.Debug.SetLA("Target Path [",V.Local.sRet,"]")
+
+	F.ODBC.Connection!conX.OpenLocalRecordsetRO("rst","Select * From GL_Consolidated")
+	F.Intrinsic.String.Concat(V.ODBC.conX!rst.FieldVal!TO_PATH,"\*.*",V.Local.sRet)
+	F.Intrinsic.File.DeleteFile(V.Local.sRet)
+
+	F.Intrinsic.Control.DoUntil(V.ODBC.conX!rst.EOF,=,True)
+
+		F.Intrinsic.File.GetFileNameFromFQN(V.ODBC.conX!rst.FieldVal!FROM_PATH,V.Local.sRet)
+		F.Intrinsic.String.Concat(V.ODBC.conX!rst.FieldVal!TO_PATH,"\",V.Local.sRet,V.Local.sTo)
+		F.Intrinsic.File.CopyFile(V.ODBC.conX!rst.FieldVal!FROM_PATH,V.Local.sTo)
+
+		'check if copy successful
+		F.Intrinsic.File.Exists(V.Local.sTo,V.Local.bRet)
+
+		F.Intrinsic.Control.If(V.Local.bRet,=,False)
+			F.Intrinsic.Debug.SetLA("Could not move [",V.ODBC.conX!rst.FieldVal!FROM_PATH,"] to [",V.Local.sTo,"]")
+		F.Intrinsic.Control.Else
+			F.Intrinsic.Math.Add(V.Local.iMoved,1,V.Local.iMoved)
+			F.Intrinsic.Debug.SetLA("Number of files moved so far: ",V.Local.iMoved)
+		F.Intrinsic.Control.EndIf
+
+		F.ODBC.conX!rst.MoveNext
+	F.Intrinsic.Control.Loop
+
+	F.Intrinsic.Debug.SetLA("Number of files moved: ",V.Local.iMoved)
+
+	F.ODBC.conX!rst.Close
+
+F.Intrinsic.Control.EndIf
+
+F.ODBC.Connection!conX.Close
+
+F.Intrinsic.String.Build("Files to be copied:  {0}{1}Total Files copied:  {2}",V.Local.iTotalFiles,V.Ambient.NewLine,V.Local.iMoved,V.Local.sBody)
+
+F.Global.Messaging.QueueMessage(V.Caller.CompanyCode,V.Local.iUserID,"Task Scheduler GL","Copy GL Files","andrewk@jormac.com*!*Task Scheduler","Andrew*!*andrewk@jormac.com",V.Local.sBody)
+'F.Global.Messaging.QueueMessage(v.Caller.CompanyCode,v.Local.iUserID,"Task Scheduler GL","Copy GL Files","scrow@gssmail.com*!*Task Scheduler","Andrew*!*scrow@gssmail.com",v.Local.sBody)
+
+
+Program.Sub.Main.End
+
+Program.Sub.Comments.Start
+${$0$}$PPT_ConsolidateFiles$}$MARY$}$7/26/2015
+Program.Sub.Comments.End
+
